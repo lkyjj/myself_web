@@ -1,0 +1,34 @@
+{
+  "aiTech": {
+    "LLM应用开发": 90,
+    "RAG知识库": 88,
+    "Agent开发": 85,
+    "LoRA微调": 80,
+    "提示工程": 92,
+    "多模态AI": 78
+  },
+  "productSkills": {
+    "PRD设计": 88,
+    "AB测试": 85,
+    "需求洞察": 82,
+    "数据分析": 90,
+    "用户研究": 78,
+    "竞品分析": 80
+  },
+  "frontendDev": {
+    "React/TypeScript": 92,
+    "Next.js": 88,
+    "TailwindCSS": 90,
+    "Vue.js": 75,
+    "状态管理": 85,
+    "组件化开发": 88
+  },
+  "backendDev": {
+    "Node.js/Express": 88,
+    "Python/Django": 82,
+    "MySQL数据库": 85,
+    "API设计": 90,
+    "微服务架构": 75,
+    "性能优化": 80
+  }
+}

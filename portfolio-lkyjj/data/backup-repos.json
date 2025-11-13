@@ -1,0 +1,53 @@
+[
+  {
+    "id": "capture-learn-word",
+    "name": "拍照学单词",
+    "description": "多模态AI应用，支持拍照识别文字并生成语音，实现图像→文字→语音的完整闭环",
+    "techStack": ["React Native", "Vision模型", "TTS", "多模态AI"],
+    "achievement": [
+      "图像识别准确率95%，支持中英双语",
+      "语音合成延迟≤300ms，自然度4.2/5",
+      "离线缓存机制，节省流量85%",
+      "App Store评分4.6，下载量5万+"
+    ],
+    "githubUrl": "https://github.com/lkyjj/capture-learn-word",
+    "demoUrl": "",
+    "starCount": 128,
+    "category": "独立开发类",
+    "updatedAt": "2025-10-15"
+  },
+  {
+    "id": "react-admin-template",
+    "name": "React管理后台模板",
+    "description": "基于React+TypeScript的企业级管理后台模板，包含权限管理、数据表格等核心功能",
+    "techStack": ["React", "TypeScript", "Ant Design", "Vite"],
+    "achievement": [
+      "首屏加载时间<1.2s",
+      "支持动态权限控制，角色配置灵活",
+      "响应式布局，适配移动端",
+      "GitHub star 200+，被多个企业采用"
+    ],
+    "githubUrl": "https://github.com/lkyjj/react-admin-template",
+    "demoUrl": "https://admin-template-demo.lkyjj.ai",
+    "starCount": 203,
+    "category": "独立开发类",
+    "updatedAt": "2025-09-20"
+  },
+  {
+    "id": "ai-interview-helper",
+    "name": "AI面试助手",
+    "description": "智能面试辅助工具，实时分析面试问题并提供回答建议，支持技术面试场景",
+    "techStack": ["Vue.js", "WebRTC", "LLM", "实时通信"],
+    "achievement": [
+      "语音识别准确率92%，支持技术术语",
+      "回答建议生成时间<800ms",
+      "支持20+技术领域面试题库",
+      "用户通过率提升35%"
+    ],
+    "githubUrl": "https://github.com/lkyjj/ai-interview-helper",
+    "demoUrl": "",
+    "starCount": 89,
+    "category": "AI专项类",
+    "updatedAt": "2025-08-10"
+  }
+]

@@ -1,0 +1,104 @@
+[
+  {
+    "id": "meituan-ai",
+    "name": "美团AI产品实习 - 发票识别与报销流程优化",
+    "description": "主导发票识别模块优化，重构报销流程，降低AI调用成本与服务器压力",
+    "techStack": ["AI Agent", "缓存机制", "异步处理", "PRD设计"],
+    "achievement": [
+      "识别触发前置，异步+缓存实现提交0耗时，提升用户体验",
+      "移除统一推理逻辑，重构6大类型直连bot，提升意图响应效率",
+      "合并冗余字段，减少Token传输，降低调用耗时与成本",
+      "KV映射替代RAG，减少30s+推理耗时，降低模型调用频率"
+    ],
+    "githubUrl": "",
+    "demoUrl": "",
+    "caseStudyUrl": "/case-study/meituan",
+    "category": "产品落地类",
+    "period": "2025.09-2025.11"
+  },
+  {
+    "id": "bok-health",
+    "name": "上海与你科技 - BOK Health食谱生成模块重构",
+    "description": "负责出海C端AI Health Agent的食谱生成模块全链路重构，提升用户采纳率与留存",
+    "techStack": ["n8n工作流", "RAG", "LLM幻觉优化", "A/B测试"],
+    "achievement": [
+      "幻觉率从32%降至<5%，食谱采纳率提升18%，次留提升6pp",
+      "集成6大子模块，整体响应时间<2.5s",
+      "语义检查节点保障营养目标一致，用户编辑成本降低40%",
+      "3周内上线，覆盖12万月活，0 P1故障"
+    ],
+    "githubUrl": "",
+    "demoUrl": "",
+    "caseStudyUrl": "/case-study/bok-health",
+    "category": "产品落地类",
+    "period": "2025.08-2025.09"
+  },
+  {
+    "id": "coze-agent",
+    "name": "Coze智能客服Agent开发",
+    "description": "基于微信社群5.2万条咨询记录，开发智能客服Agent，优先落地门票退改场景",
+    "techStack": ["Coze工作流", "LLM函数调用", "RAG知识库", "微信生态"],
+    "achievement": [
+      "人工接管率从38%降至9%，响应时间1.8s",
+      "动态Few-shot模板，准确率提升至91%",
+      "灰度3k用户，覆盖门票退改核心场景",
+      "5步工作流：意图识别→知识检索→答案生成→敏感词过滤→微信回传"
+    ],
+    "githubUrl": "https://github.com/lkyjj/coze-customer-service",
+    "demoUrl": "",
+    "caseStudyUrl": "/case-study/coze-agent",
+    "category": "独立开发类",
+    "period": "2025.06-2025.07"
+  },
+  {
+    "id": "travel-recommendation",
+    "name": "旅游推荐系统",
+    "description": "基于用户行为数据构建个性化旅游推荐系统，提升CTR和用户停留时长",
+    "techStack": ["Python", "协同过滤", "深度学习", "Flask"],
+    "achievement": [
+      "CTR提升15%，用户停留时长增加23%",
+      "召回率85%，准确率92%，覆盖10万+用户数据",
+      "A/B测试验证，实验组转化率提升12%",
+      "响应时间<200ms，支持实时推荐"
+    ],
+    "githubUrl": "https://github.com/lkyjj/travel-recommendation",
+    "demoUrl": "https://travel-demo.lkyjj.ai",
+    "caseStudyUrl": "",
+    "category": "独立开发类",
+    "period": "2025.04-2025.05"
+  },
+  {
+    "id": "voice-assistant",
+    "name": "语音交互竞技辅助",
+    "description": "开发实时语音交互系统，为竞技游戏提供智能辅助，支持多轮对话和技能查询",
+    "techStack": ["React", "WebRTC", "语音识别", "LLM对话"],
+    "achievement": [
+      "语音输入准确率95%，响应延迟≤300ms",
+      "支持多轮对话，上下文理解准确率88%",
+      "覆盖50+游戏技能查询，用户满意度4.2/5",
+      "WebRTC实现低延迟语音传输"
+    ],
+    "githubUrl": "https://github.com/lkyjj/voice-assistant-game",
+    "demoUrl": "",
+    "caseStudyUrl": "",
+    "category": "AI专项类",
+    "period": "2025.02-2025.03"
+  },
+  {
+    "id": "qwen-finetune",
+    "name": "Qwen-7B模型微调",
+    "description": "基于LLaMA-Factory框架对Qwen-7B进行领域微调，提升特定场景下的专业回答能力",
+    "techStack": ["LLaMA-Factory", "LoRA微调", "GPU训练", "模型评估"],
+    "achievement": [
+      "在旅游领域问答准确率提升22%",
+      "训练时间减少40%，GPU资源利用率提升35%",
+      "模型大小压缩60%，推理速度提升3倍",
+      "BLEU评分提升18%，ROUGE-L提升15%"
+    ],
+    "githubUrl": "https://github.com/lkyjj/qwen-finetune",
+    "demoUrl": "",
+    "caseStudyUrl": "",
+    "category": "AI专项类",
+    "period": "2025.01-2025.02"
+  }
+]

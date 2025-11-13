@@ -1,0 +1,60 @@
+[
+  {
+    "period": "2025.09-2025.11",
+    "company": "美团",
+    "position": "AI产品实习生",
+    "achievements": [
+      "发票识别模块优化，实现提交0耗时",
+      "重构报销流程，降低AI调用成本"
+    ],
+    "type": "实习"
+  },
+  {
+    "period": "2025.08-2025.09",
+    "company": "上海与你科技",
+    "position": "AI产品经理实习生",
+    "achievements": [
+      "BOK Health食谱生成模块重构",
+      "幻觉率从32%降至<5%，次留提升6pp"
+    ],
+    "type": "实习"
+  },
+  {
+    "period": "2025.06-2025.07",
+    "company": "上海思创电器",
+    "position": "AI算法实习生",
+    "achievements": [
+      "Coze智能客服Agent开发",
+      "人工接管率从38%降至9%"
+    ],
+    "type": "实习"
+  },
+  {
+    "period": "2025.01-2025.05",
+    "company": "江西麟创科技",
+    "position": "全栈开发实习生",
+    "achievements": [
+      "旅游推荐系统开发",
+      "CTR提升15%，用户停留时长增加23%"
+    ],
+    "type": "实习"
+  },
+  {
+    "period": "2026-2027",
+    "company": "新南威尔士大学",
+    "position": "软件工程硕士",
+    "achievements": [
+      "已录取，2026年开始就读"
+    ],
+    "type": "教育"
+  },
+  {
+    "period": "2021-2025",
+    "company": "东华理工大学",
+    "position": "软件工程本科",
+    "achievements": [
+      "GPA 3.7/4.0，专业排名前10%"
+    ],
+    "type": "教育"
+  }
+]
