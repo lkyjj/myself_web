@@ -6,6 +6,9 @@
   "functions": {
     "app/api/github-repos/route.ts": {
       "maxDuration": 10
+    },
+    "app/api/projects/route.ts": {
+      "maxDuration": 10
     }
   },
   "rewrites": [

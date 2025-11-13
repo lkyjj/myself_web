@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-white text-black">
       {/* Hero Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
@@ -16,15 +16,11 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
           >
             <div className="mb-8">
-              <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-4xl font-bold mx-auto mb-6">
+              <div className="w-24 h-24 rounded-full border border-gray-300 flex items-center justify-center text-3xl font-semibold mx-auto mb-6">
                 刘
               </div>
-              <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                刘康宇
-              </h1>
-              <p className="text-xl text-gray-300 mb-6">
-                AI产品经理 + 全栈研发工程师
-              </p>
+              <h1 className="text-5xl font-bold mb-4">刘康宇</h1>
+              <p className="text-xl text-gray-600 mb-6">AI产品经理 + 全栈研发工程师</p>
               <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-400">
                 <span>22岁</span>
                 <span>•</span>
@@ -34,9 +30,9 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="bg-gray-800 rounded-lg p-8 mb-8">
-              <h2 className="text-2xl font-semibold mb-4 text-blue-400">个人宣言</h2>
-              <p className="text-lg leading-relaxed text-gray-300">
+            <div className="bg-white border border-gray-200 rounded-lg p-8 mb-8">
+              <h2 className="text-2xl font-semibold mb-4">个人宣言</h2>
+              <p className="text-lg leading-relaxed text-gray-700">
                 专注LLM应用落地，用产品思维驱动技术价值。致力于将前沿AI技术转化为用户价值，
                 通过数据驱动的产品迭代，创造真正有用的智能应用。
               </p>
@@ -63,15 +59,15 @@ export default function AboutPage() {
               ].map((category, index) => (
                 <motion.div
                   key={category.title}
-                  className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors"
+                  className="bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-50 transition-colors"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <h3 className="text-lg font-semibold mb-3 text-blue-400">{category.title}</h3>
+                  <h3 className="text-lg font-semibold mb-3">{category.title}</h3>
                   <ul className="space-y-2">
                     {category.items.map((item) => (
-                      <li key={item} className="text-gray-300 text-sm">
+                      <li key={item} className="text-gray-700 text-sm">
                         • {item}
                       </li>
                     ))}
@@ -84,7 +80,7 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-16 bg-gray-800">
+      <section className="py-16 bg-gray-50">
         <Timeline />
       </section>
 
@@ -103,7 +99,7 @@ export default function AboutPage() {
             </motion.div>
             
             <motion.div
-              className="bg-gray-800 rounded-lg p-8"
+              className="bg-white border border-gray-200 rounded-lg p-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -114,7 +110,7 @@ export default function AboutPage() {
                     <span className="text-white font-bold">📞</span>
                   </div>
                   <h4 className="font-semibold mb-2">电话</h4>
-                  <p className="text-gray-300 text-sm">18370038070</p>
+                  <p className="text-gray-600 text-sm">18370038070</p>
                 </div>
                 
                 <div className="text-center">
@@ -122,7 +118,7 @@ export default function AboutPage() {
                     <span className="text-white font-bold">✉️</span>
                   </div>
                   <h4 className="font-semibold mb-2">邮箱</h4>
-                  <p className="text-gray-300 text-sm">1525494310@qq.com</p>
+                  <p className="text-gray-600 text-sm">1525494310@qq.com</p>
                 </div>
                 
                 <div className="text-center">
@@ -134,7 +130,7 @@ export default function AboutPage() {
                     href="https://github.com/lkyjj" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-blue-400 hover:text-blue-300 text-sm transition-colors"
+                    className="text-black hover:underline text-sm"
                   >
                     github.com/lkyjj
                   </a>

@@ -39,33 +39,33 @@ export default function ContactSection() {
   };
 
   return (
-    <div className="bg-gray-800 rounded-lg p-8">
+    <div className="bg-white border border-gray-200 rounded-lg p-8">
       <h3 className="text-2xl font-bold mb-6 text-center">联系方式</h3>
       <div className="space-y-4">
         {contactInfo.map((item) => (
           <motion.div
             key={item.field}
-            className="flex items-center justify-between p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
+            className="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
             whileHover={{ scale: 1.02 }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
           >
             <div className="flex items-center space-x-3">
-              <item.icon className="text-blue-400 text-xl" />
+              <item.icon className="text-black text-xl" />
               <div>
-                <p className="text-sm text-gray-400">{item.label}</p>
+                <p className="text-sm text-gray-600">{item.label}</p>
                 {item.isLink ? (
                   <a 
                     href={item.value} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-white hover:text-blue-400 transition-colors"
+                    className="text-black hover:underline transition-colors"
                   >
                     {item.value.replace('https://', '')}
                   </a>
                 ) : (
-                  <p className="text-white">{item.value}</p>
+                  <p className="text-black">{item.value}</p>
                 )}
               </div>
             </div>
@@ -73,12 +73,12 @@ export default function ContactSection() {
             {!item.isLink && (
               <button
                 onClick={() => handleCopy(item.value, item.field)}
-                className="p-2 hover:bg-gray-500 rounded transition-colors"
+                className="p-2 hover:bg-gray-300 rounded transition-colors"
               >
                 {copiedField === item.field ? (
-                  <span className="text-green-400 text-sm">已复制!</span>
+                  <span className="text-black text-sm">已复制!</span>
                 ) : (
-                  <span className="text-gray-400 text-sm">复制</span>
+                  <span className="text-gray-600 text-sm">复制</span>
                 )}
               </button>
             )}

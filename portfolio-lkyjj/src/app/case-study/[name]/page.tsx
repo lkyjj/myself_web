@@ -104,16 +104,14 @@ export default function CaseStudyDetail() {
     };
 
     loadContent();
-  }, [caseId]);
+  }, [caseId, caseStudy]);
 
   if (!caseStudy) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white py-12">
+      <div className="min-h-screen bg-white text-black py-12">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-2xl font-bold mb-4">案例不存在</h1>
-          <a href="/case-study" className="text-blue-400 hover:text-blue-300">
-            返回案例列表
-          </a>
+          <Link href="/case-study" className="text-black underline">返回案例列表</Link>
         </div>
       </div>
     );
@@ -121,7 +119,7 @@ export default function CaseStudyDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white py-12">
+      <div className="min-h-screen bg-white text-black py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="animate-pulse">
@@ -138,7 +136,7 @@ export default function CaseStudyDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-12">
+    <div className="min-h-screen bg白色 text黑色 py-12">
       <div className="container mx-auto px-4">
         <motion.div
           className="max-w-4xl mx-auto"

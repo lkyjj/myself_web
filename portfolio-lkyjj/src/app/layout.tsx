@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Navigation from "@/components/Navigation";
+import type { Metadata } from "next"
+import { Geist, Geist_Mono } from "next/font/google"
+import "./globals.css"
+import Navigation from "@/components/Navigation"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,39 +32,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 text-white min-h-screen`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black min-h-screen`}>
         <Navigation />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        
-        {/* Footer */}
-        <footer className="bg-gray-800 border-t border-gray-700 py-8">
+        <main className="min-h-screen">{children}</main>
+        <footer className="bg-white border-t border-gray-200 py-8">
           <div className="container mx-auto px-4 text-center">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded" />
-              <span className="text-lg font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                Lkyjj
-              </span>
-            </div>
-            <p className="text-gray-400 text-sm">
-              © 2025 刘康宇. 专注AI产品落地与全栈开发
-            </p>
-            <div className="flex items-center justify-center gap-4 mt-4">
-              <a 
-                href="https://github.com/lkyjj" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                GitHub
-              </a>
-              <span className="text-gray-600">•</span>
-              <span className="text-gray-400 text-sm">1525494310@qq.com</span>
-              <span className="text-gray-600">•</span>
-              <span className="text-gray-400 text-sm">18370038070</span>
+            <div className="mb-2 text-sm text-gray-500">© 2025 Lkyjj</div>
+            <div className="flex items-center justify-center gap-4">
+              <a href="https://github.com/lkyjj" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-black">GitHub</a>
+              <span className="text-gray-300">•</span>
+              <span className="text-gray-600 text-sm">1525494310@qq.com</span>
             </div>
           </div>
         </footer>

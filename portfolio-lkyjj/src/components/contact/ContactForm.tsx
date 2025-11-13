@@ -47,7 +47,7 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="bg-gray-800 rounded-lg p-8">
+    <div className="bg-white border border-gray-200 rounded-lg p-8">
       <h3 className="text-2xl font-bold mb-6 text-center">合作咨询</h3>
       
       {submitStatus === 'success' ? (
@@ -75,7 +75,7 @@ export default function ContactForm() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+                className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-black"
                 placeholder="请输入你的姓名"
               />
             </div>
@@ -91,7 +91,7 @@ export default function ContactForm() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+                className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-black"
                 placeholder="请输入你的邮箱"
               />
             </div>
@@ -106,7 +106,7 @@ export default function ContactForm() {
               name="type"
               value={formData.type}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+              className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-black"
             >
               {cooperationTypes.map((type) => (
                 <option key={type} value={type}>
@@ -127,7 +127,7 @@ export default function ContactForm() {
               onChange={handleChange}
               required
               rows={5}
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white resize-none"
+              className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-black resize-none"
               placeholder="请详细描述你的需求或想法..."
             />
           </div>
@@ -135,11 +135,11 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+            className="w-full bg-black hover:opacity-90 disabled:opacity-60 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
           >
             {isSubmitting ? (
               <div className="flex items-center justify-center">
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black mr-2"></div>
                 发送中...
               </div>
             ) : (

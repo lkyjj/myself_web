@@ -28,8 +28,10 @@ export default function SkillsPage() {
   const [activeView, setActiveView] = useState<"radar" | "list">("radar");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [proficiencyFilter, setProficiencyFilter] = useState<string>("all");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     // 加载技能数据
     const loadSkills = async () => {
       try {
@@ -173,7 +175,7 @@ export default function SkillsPage() {
   })).filter(category => category.skills.length > 0);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-white text-black">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <motion.div
@@ -199,11 +201,11 @@ export default function SkillsPage() {
         >
           <div className="flex flex-wrap gap-4 items-center justify-between">
             {/* View Toggle */}
-            <div className="flex bg-gray-800 rounded-lg p-1">
+            <div className="flex bg-white border border-gray-200 rounded-lg p-1">
               <button
                 onClick={() => setActiveView("radar")}
                 className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
-                  activeView === "radar" ? "bg-blue-600 text-white" : "text-gray-300 hover:text-white"
+                  activeView === "radar" ? "bg-black text-white" : "text-gray-700 hover:text-black"
                 }`}
               >
                 <FaChartBar />
@@ -212,7 +214,7 @@ export default function SkillsPage() {
               <button
                 onClick={() => setActiveView("list")}
                 className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
-                  activeView === "list" ? "bg-blue-600 text-white" : "text-gray-300 hover:text-white"
+                  activeView === "list" ? "bg-black text-white" : "text-gray-700 hover:text-black"
                 }`}
               >
                 <FaList />
@@ -223,11 +225,11 @@ export default function SkillsPage() {
             {/* Filters */}
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2">
-                <FaFilter className="text-gray-400" />
+                <FaFilter className="text-gray-600" />
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+                  className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-black focus:outline-none focus:border-black"
                 >
                   <option value="all">所有分类</option>
                   <option value="AI技术">AI技术</option>
@@ -240,7 +242,7 @@ export default function SkillsPage() {
               <select
                 value={proficiencyFilter}
                 onChange={(e) => setProficiencyFilter(e.target.value)}
-                className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+                className="bg白色 border border灰色-200 rounded-lg px-3 py-2 text黑色 focus:outline-none focus:border黑色"
               >
                 <option value="all">所有熟练度</option>
                 <option value="熟练掌握">熟练掌握</option>
@@ -259,39 +261,43 @@ export default function SkillsPage() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mb-12"
           >
-            <div className="bg-gray-800 rounded-xl p-8">
+            <div className="bg-white border border-gray-200 rounded-xl p-8">
               <h2 className="text-2xl font-bold mb-6 text-center">技能雷达图</h2>
               <div className="h-96">
-                <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart data={skillData}>
-                    <PolarGrid stroke="#374151" />
-                    <PolarAngleAxis 
-                      dataKey="subject" 
-                      tick={{ fill: "#D1D5DB", fontSize: 14 }}
-                    />
-                    <PolarRadiusAxis 
-                      angle={90} 
-                      domain={[0, 100]} 
-                      tick={{ fill: "#9CA3AF", fontSize: 12 }}
-                    />
-                    <Radar
-                      name="技能水平"
-                      dataKey="A"
-                      stroke="#3B82F6"
-                      fill="#3B82F6"
-                      fillOpacity={0.3}
-                      strokeWidth={2}
-                    />
-                    <Tooltip 
-                      contentStyle={{
-                        backgroundColor: "#1F2937",
-                        border: "1px solid #374151",
-                        borderRadius: "8px",
-                        color: "#F3F4F6"
-                      }}
-                    />
-                  </RadarChart>
-                </ResponsiveContainer>
+                {mounted ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <RadarChart data={skillData}>
+                      <PolarGrid stroke="#e5e7eb" />
+                      <PolarAngleAxis 
+                        dataKey="subject" 
+                        tick={{ fill: "#6b7280", fontSize: 14 }}
+                      />
+                      <PolarRadiusAxis 
+                        angle={90} 
+                        domain={[0, 100]} 
+                        tick={{ fill: "#9ca3af", fontSize: 12 }}
+                      />
+                      <Radar
+                        name="技能水平"
+                        dataKey="A"
+                        stroke="#000000"
+                        fill="#000000"
+                        fillOpacity={0.15}
+                        strokeWidth={2}
+                      />
+                      <Tooltip 
+                        contentStyle={{
+                          backgroundColor: "#ffffff",
+                          border: "1px solid #e5e7eb",
+                          borderRadius: "8px",
+                          color: "#111827"
+                        }}
+                      />
+                    </RadarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="w-full h-full bg-gray-100 rounded animate-pulse" />
+                )}
               </div>
             </div>
           </motion.div>
@@ -306,7 +312,7 @@ export default function SkillsPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-                className="bg-gray-800 rounded-xl p-6"
+                className="bg-white border border-gray-200 rounded-xl p-6"
               >
                 <div className="flex items-center gap-3 mb-6">
                   <div 
@@ -326,18 +332,18 @@ export default function SkillsPage() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.4, delay: skillIndex * 0.05 }}
-                      className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors"
+                      className="bg-gray-100 rounded-lg p-4 hover:bg-gray-200 transition-colors"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <h4 className="font-semibold text-lg">{skill.name}</h4>
                         <div className="flex items-center gap-2">
-                          <span className="text-sm text-gray-300">
+                          <span className="text-sm text-gray-600">
                             {skill.level}%
                           </span>
                           <span className={`px-2 py-1 rounded-full text-xs ${
-                            skill.level >= 90 ? "bg-green-900 text-green-300" :
-                            skill.level >= 80 ? "bg-blue-900 text-blue-300" :
-                            "bg-gray-700 text-gray-300"
+                            skill.level >= 90 ? "bg-green-100 text-green-700" :
+                            skill.level >= 80 ? "bg-blue-100 text-blue-700" :
+                            "bg-gray-100 text-gray-700"
                           }`}>
                             {getProficiencyLevel(skill.level)}
                           </span>
@@ -345,26 +351,26 @@ export default function SkillsPage() {
                       </div>
 
                       <div className="mb-3">
-                        <div className="bg-gray-600 rounded-full h-2">
+                        <div className="bg-gray-200 rounded-full h-2">
                           <div
-                            className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-1000"
+                            className="bg-black h-2 rounded-full transition-all duration-1000"
                             style={{ width: `${skill.level}%` }}
                           />
                         </div>
                       </div>
 
-                      <p className="text-gray-300 text-sm mb-3">
+                      <p className="text-gray-600 text-sm mb-3">
                         {skill.description}
                       </p>
 
                       {skill.relatedProjects.length > 0 && (
                         <div>
-                          <p className="text-gray-400 text-xs mb-2">相关项目:</p>
+                          <p className="text-gray-600 text-xs mb-2">相关项目:</p>
                           <div className="flex flex-wrap gap-2">
                             {skill.relatedProjects.map((project, index) => (
                               <span
                                 key={index}
-                                className="bg-gray-600 text-gray-200 px-2 py-1 rounded text-xs"
+                                className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs"
                               >
                                 {project}
                               </span>
@@ -385,16 +391,16 @@ export default function SkillsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-12 bg-gray-800 rounded-xl p-6"
+          className="mt-12 bg-white border border-gray-200 rounded-xl p-6"
         >
           <h3 className="text-xl font-bold mb-4">技能统计</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {skillData.map((item, index) => (
               <div key={item.subject} className="text-center">
-                <div className="text-2xl font-bold text-blue-400">
+                <div className="text-2xl font-bold text-black">
                   {item.A}%
                 </div>
-                <div className="text-gray-300 text-sm">{item.subject}</div>
+                <div className="text-gray-600 text-sm">{item.subject}</div>
               </div>
             ))}
           </div>

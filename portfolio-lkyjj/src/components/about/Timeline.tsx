@@ -85,7 +85,7 @@ function TimelineItem({ item, index }: TimelineItemProps) {
     >
       {/* 时间线节点 */}
       <div className="flex-shrink-0">
-        <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center relative">
+        <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center relative">
           {item.type === "实习" ? (
             <FaBriefcase className="text-white text-lg" />
           ) : (
@@ -93,26 +93,24 @@ function TimelineItem({ item, index }: TimelineItemProps) {
           )}
           {/* 连接线 */}
           {index < timelineData.length - 1 && (
-            <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-gray-600"></div>
+            <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-gray-300"></div>
           )}
         </div>
       </div>
 
       {/* 内容卡片 */}
-      <div className="flex-1 bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors">
+      <div className="flex-1 bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-50 transition-colors">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-lg font-semibold text-white">{item.company}</h3>
-          <span className="text-sm text-blue-400 bg-blue-900 px-3 py-1 rounded-full">
+          <h3 className="text-lg font-semibold text-black">{item.company}</h3>
+          <span className="text-sm text-black bg-gray-100 px-3 py-1 rounded-full">
             {item.period}
           </span>
         </div>
-        
-        <h4 className="text-md font-medium text-gray-300 mb-4">{item.position}</h4>
-        
+        <h4 className="text-md font-medium text-gray-600 mb-4">{item.position}</h4>
         <ul className="space-y-2">
           {item.achievements.map((achievement, idx) => (
-            <li key={idx} className="text-gray-400 text-sm flex items-start">
-              <span className="text-blue-400 mr-2">•</span>
+            <li key={idx} className="text-gray-600 text-sm flex items-start">
+              <span className="text-black mr-2">•</span>
               {achievement}
             </li>
           ))}

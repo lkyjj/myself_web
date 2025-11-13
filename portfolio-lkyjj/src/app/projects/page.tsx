@@ -14,37 +14,28 @@ export default function ProjectsPage() {
   // 加载项目数据
   useEffect(() => {
     const loadProjects = async () => {
-      setLoading(true);
+      setLoading(true)
       try {
-        // 获取实习项目数据
-        const internshipProjects = require("../../../data/projects.json");
-        
-        // 获取GitHub开源项目
-        const githubResponse = await fetch('/api/github-repos');
-        let githubRepos: Project[] = [];
-        
-        if (githubResponse.ok) {
-          githubRepos = await githubResponse.json();
-        } else {
-          // 如果API失败，使用本地备份数据
-          githubRepos = require("../../../data/backup-repos.json");
-        }
+        const [projectsRes, githubRes] = await Promise.all([
+          fetch('/api/projects'),
+          fetch('/api/github-repos'),
+        ])
 
-        // 合并数据
-        const mergedProjects = [...githubRepos, ...internshipProjects];
-        setAllProjects(mergedProjects);
+        const internshipProjects: Project[] = projectsRes.ok ? await projectsRes.json() : []
+        const githubRepos: Project[] = githubRes.ok ? await githubRes.json() : []
+
+        const mergedProjects = [...githubRepos, ...internshipProjects]
+        setAllProjects(mergedProjects)
       } catch (error) {
-        console.error("加载项目失败:", error);
-        // 降级方案：只使用本地数据
-        const internshipProjects = require("../../../data/projects.json");
-        setAllProjects(internshipProjects);
+        console.error('加载项目失败:', error)
+        setAllProjects([])
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    loadProjects();
-  }, []);
+    loadProjects()
+  }, [])
 
   // 筛选项目
   const filteredProjects = activeFilter === "全部"
@@ -55,7 +46,7 @@ export default function ProjectsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white py-12">
+      <div className="min-h-screen bg-white text-black py-12">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -70,15 +61,15 @@ export default function ProjectsPage() {
           {/* 骨架屏 */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="bg-gray-800 rounded-lg p-6 animate-pulse">
-                <div className="h-6 bg-gray-700 rounded w-3/4 mb-4"></div>
-                <div className="h-4 bg-gray-700 rounded w-full mb-2"></div>
-                <div className="h-4 bg-gray-700 rounded w-5/6 mb-6"></div>
+              <div key={i} className="bg-gray-100 rounded-lg p-6 animate-pulse">
+                <div className="h-6 bg-gray-200 rounded w-3/4 mb-4"></div>
+                <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                <div className="h-4 bg-gray-200 rounded w-5/6 mb-6"></div>
                 <div className="flex space-x-2 mb-4">
-                  <div className="h-6 bg-gray-700 rounded w-1/3"></div>
-                  <div className="h-6 bg-gray-700 rounded w-1/3"></div>
+                  <div className="h-6 bg-gray-200 rounded w-1/3"></div>
+                  <div className="h-6 bg-gray-200 rounded w-1/3"></div>
                 </div>
-                <div className="h-10 bg-gray-700 rounded w-full"></div>
+                <div className="h-10 bg-gray-200 rounded w-full"></div>
               </div>
             ))}
           </div>
@@ -88,7 +79,7 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-12">
+    <div className="min-h-screen bg-white text-black py-12">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -97,7 +88,7 @@ export default function ProjectsPage() {
           className="text-center mb-12"
         >
           <h1 className="text-4xl font-bold mb-4">我的项目</h1>
-          <p className="text-gray-400">展示我的技术能力和项目经验</p>
+          <p className="text-gray-600">展示我的技术能力和项目经验</p>
         </motion.div>
 
         {/* 筛选标签 */}
@@ -112,7 +103,7 @@ export default function ProjectsPage() {
         {/* 项目列表 */}
         {filteredProjects.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-400 text-lg">暂无该分类下的项目</p>
+            <p className="text-gray-600 text-lg">暂无该分类下的项目</p>
           </div>
         ) : (
           <motion.div 

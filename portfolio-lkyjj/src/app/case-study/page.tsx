@@ -125,7 +125,7 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
 
 export default function CaseStudiesPage() {
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-12">
+    <div className="min-h-screen bg-white text-black py-12">
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center max-w-3xl mx-auto mb-12"

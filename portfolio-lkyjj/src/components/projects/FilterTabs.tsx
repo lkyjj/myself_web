@@ -15,8 +15,8 @@ export default function FilterTabs({ filters, activeFilter, onFilterChange }: Fi
           onClick={() => onFilterChange(filter)}
           className={`px-4 py-2 rounded-lg transition-all duration-200 ${
             activeFilter === filter
-              ? 'bg-blue-600 text-white shadow-lg'
-              : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
+              ? 'bg-black text-white'
+              : 'bg-white border border-gray-200 text-gray-700 hover:border-black'
           }`}
         >
           {filter}
