@@ -5,11 +5,37 @@ import { motion } from 'framer-motion';
 import ProjectCard from '@/components/projects/ProjectCard';
 import FilterTabs from '@/components/projects/FilterTabs';
 import { Project } from '@/types';
+import { t, Lang } from '@/lib/utils/i18n';
 
 export default function ProjectsPage() {
   const [allProjects, setAllProjects] = useState<Project[]>([]);
+  const [lang, setLang] = useState<Lang>('zh');
   const [activeFilter, setActiveFilter] = useState("全部");
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('lang') as Lang | null;
+    if (saved) {
+      setLang(saved);
+      setActiveFilter(saved === 'zh' ? '全部' : 'All');
+    }
+    
+    const handleStorageChange = () => {
+      const updated = localStorage.getItem('lang') as Lang | null;
+      if (updated) {
+        setLang(updated);
+        setActiveFilter(updated === 'zh' ? '全部' : 'All');
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('languageChange', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('languageChange', handleStorageChange);
+    };
+  }, []);
 
   // 加载项目数据
   useEffect(() => {
@@ -38,11 +64,14 @@ export default function ProjectsPage() {
   }, [])
 
   // 筛选项目
-  const filteredProjects = activeFilter === "全部"
+  const allFilterKey = lang === 'zh' ? '全部' : 'All';
+  const filteredProjects = activeFilter === allFilterKey
     ? allProjects
     : allProjects.filter(project => project.category === activeFilter);
 
-  const filters = ["全部", "产品落地类", "独立开发类", "AI专项类"];
+  const filters = lang === 'zh' 
+    ? ["全部", "产品落地类", "独立开发类", "AI专项类"]
+    : ["All", "Product", "Independent", "AI Specialized"];
 
   if (loading) {
     return (
@@ -54,8 +83,8 @@ export default function ProjectsPage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h1 className="text-4xl font-bold mb-4">我的项目</h1>
-            <p className="text-gray-400">展示我的技术能力和项目经验</p>
+            <h1 className="text-4xl font-bold mb-4">{t(lang, 'projects.title')}</h1>
+            <p className="text-gray-400">{t(lang, 'projects.subtitle')}</p>
           </motion.div>
           
           {/* 骨架屏 */}
@@ -87,8 +116,8 @@ export default function ProjectsPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl font-bold mb-4">我的项目</h1>
-          <p className="text-gray-600">展示我的技术能力和项目经验</p>
+          <h1 className="text-4xl font-bold mb-4">{t(lang, 'projects.title')}</h1>
+          <p className="text-gray-600">{t(lang, 'projects.subtitle')}</p>
         </motion.div>
 
         {/* 筛选标签 */}
@@ -103,7 +132,7 @@ export default function ProjectsPage() {
         {/* 项目列表 */}
         {filteredProjects.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-600 text-lg">暂无该分类下的项目</p>
+            <p className="text-gray-600 text-lg">{t(lang, 'projects.empty')}</p>
           </div>
         ) : (
           <motion.div 

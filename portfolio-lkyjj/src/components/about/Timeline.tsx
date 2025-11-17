@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { FaBriefcase, FaGraduationCap } from 'react-icons/fa';
+import { t, Lang } from '@/lib/utils/i18n';
 
-const timelineData = [
+const timelineDataZh = [
   {
     period: "2025.09-2025.11",
     company: "美团",
@@ -38,11 +39,11 @@ const timelineData = [
   },
   {
     period: "2025.01-2025.05",
-    company: "江西麟创科技",
-    position: "全栈开发实习生",
+    company: "字节跳动",
+    position: "AI Agent开发实习生",
     achievements: [
-      "旅游推荐系统开发",
-      "CTR提升15%，用户停留时长增加23%"
+      "智能对话Agent系统开发",
+      "多轮对话准确率提升至92%，响应速度优化40%"
     ],
     type: "实习"
   },
@@ -51,7 +52,7 @@ const timelineData = [
     company: "新南威尔士大学",
     position: "软件工程硕士",
     achievements: [
-      "已录取，2026年开始就读"
+      "UNSW软件工程硕士在读"
     ],
     type: "教育"
   },
@@ -66,14 +67,79 @@ const timelineData = [
   }
 ];
 
+const timelineDataEn = [
+  {
+    period: "2025.09-2025.11",
+    company: "Meituan",
+    position: "AI Product Intern",
+    achievements: [
+      "Invoice recognition module optimization, zero submission time",
+      "Reimbursement process refactor, reduced AI cost"
+    ],
+    type: "Internship"
+  },
+  {
+    period: "2025.08-2025.09",
+    company: "Shanghai YuNi Technology",
+    position: "AI Product Manager Intern",
+    achievements: [
+      "BOK Health recipe generation module refactor",
+      "Hallucination rate from 32% to <5%, retention +6pp"
+    ],
+    type: "Internship"
+  },
+  {
+    period: "2025.06-2025.07",
+    company: "Shanghai Sichuang Electronics",
+    position: "AI Algorithm Intern",
+    achievements: [
+      "Coze intelligent customer service Agent development",
+      "Manual takeover rate from 38% to 9%"
+    ],
+    type: "Internship"
+  },
+  {
+    period: "2025.01-2025.05",
+    company: "ByteDance",
+    position: "AI Agent Development Intern",
+    achievements: [
+      "Intelligent dialogue Agent system development",
+      "Multi-turn dialogue accuracy improved to 92%, response speed optimized by 40%"
+    ],
+    type: "Internship"
+  },
+  {
+    period: "2026-2027",
+    company: "UNSW",
+    position: "Master of Software Engineering",
+    achievements: [
+      "UNSW Master of Software Engineering"
+    ],
+    type: "Education"
+  },
+  {
+    period: "2021-2025",
+    company: "East China University of Technology",
+    position: "Bachelor of Software Engineering",
+    achievements: [
+      "GPA 3.7/4.0, Top 10% in major"
+    ],
+    type: "Education"
+  }
+];
+
 interface TimelineItemProps {
-  item: typeof timelineData[0];
+  item: typeof timelineDataZh[0];
   index: number;
+  totalItems: number;
+  lang: Lang;
 }
 
-function TimelineItem({ item, index }: TimelineItemProps) {
+function TimelineItem({ item, index, totalItems, lang }: TimelineItemProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+
+  const isInternship = item.type === "实习" || item.type === "Internship";
 
   return (
     <motion.div
@@ -86,13 +152,13 @@ function TimelineItem({ item, index }: TimelineItemProps) {
       {/* 时间线节点 */}
       <div className="flex-shrink-0">
         <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center relative">
-          {item.type === "实习" ? (
+          {isInternship ? (
             <FaBriefcase className="text-white text-lg" />
           ) : (
             <FaGraduationCap className="text-white text-lg" />
           )}
           {/* 连接线 */}
-          {index < timelineData.length - 1 && (
+          {index < totalItems - 1 && (
             <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-gray-300"></div>
           )}
         </div>
@@ -120,7 +186,13 @@ function TimelineItem({ item, index }: TimelineItemProps) {
   );
 }
 
-export default function Timeline() {
+interface TimelineProps {
+  lang: Lang;
+}
+
+export default function Timeline({ lang }: TimelineProps) {
+  const timelineData = lang === 'zh' ? timelineDataZh : timelineDataEn;
+
   return (
     <div className="py-16">
       <div className="container mx-auto px-4">
@@ -130,13 +202,13 @@ export default function Timeline() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl font-bold mb-4">经历时间轴</h2>
-          <p className="text-gray-400">从校园到职场的成长历程</p>
+          <h2 className="text-3xl font-bold mb-4">{t(lang, 'timeline.title')}</h2>
+          <p className="text-gray-400">{t(lang, 'timeline.subtitle')}</p>
         </motion.div>
 
         <div className="max-w-4xl mx-auto">
           {timelineData.map((item, index) => (
-            <TimelineItem key={index} item={item} index={index} />
+            <TimelineItem key={index} item={item} index={index} totalItems={timelineData.length} lang={lang} />
           ))}
         </div>
       </div>

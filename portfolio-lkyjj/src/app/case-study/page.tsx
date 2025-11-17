@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { t, Lang } from '@/lib/utils/i18n';
 
 interface CaseStudy {
   id: string;
@@ -60,7 +61,7 @@ const caseStudies: CaseStudy[] = [
   }
 ];
 
-function CaseStudyCard({ study }: { study: CaseStudy }) {
+function CaseStudyCard({ study, lang }: { study: CaseStudy; lang: Lang }) {
   return (
     <motion.div
       className="bg-gray-800 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300"
@@ -93,12 +94,12 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
 
         {/* 关键指标 */}
         <div className="mb-6">
-          <h4 className="text-sm font-semibold text-blue-400 mb-3">关键指标</h4>
+          <h4 className="text-sm font-semibold text-blue-400 mb-3">{t(lang, 'case.keyMetrics')}</h4>
           <div className="space-y-3">
             {study.keyMetrics.map((metric, index) => (
               <div key={index} className="bg-gray-700 rounded-lg p-3">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-400">优化前</span>
+                  <span className="text-gray-400">{t(lang, 'case.before')}</span>
                   <span className="text-green-400 font-medium">{metric.improvement}</span>
                 </div>
                 <div className="flex items-center justify-between mt-1">
@@ -116,7 +117,7 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
           href={`/case-study/${study.id}`}
           className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-2 px-4 rounded-lg transition-colors"
         >
-          查看详细复盘
+          {t(lang, 'case.viewDetail')}
         </Link>
       </div>
     </motion.div>
@@ -124,6 +125,26 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
 }
 
 export default function CaseStudiesPage() {
+  const [lang, setLang] = useState<Lang>('zh');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('lang') as Lang | null;
+    if (saved) setLang(saved);
+    
+    const handleStorageChange = () => {
+      const updated = localStorage.getItem('lang') as Lang | null;
+      if (updated) setLang(updated);
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('languageChange', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('languageChange', handleStorageChange);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-white text-black py-12">
       <div className="container mx-auto px-4">
@@ -133,9 +154,9 @@ export default function CaseStudiesPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl font-bold mb-4">案例复盘</h1>
+          <h1 className="text-4xl font-bold mb-4">{t(lang, 'case.title')}</h1>
           <p className="text-gray-400 text-lg">
-            深度剖析代表性项目，从需求洞察到技术落地的完整思考过程
+            {t(lang, 'case.subtitle')}
           </p>
         </motion.div>
 
@@ -148,7 +169,7 @@ export default function CaseStudiesPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <CaseStudyCard study={study} />
+              <CaseStudyCard study={study} lang={lang} />
             </motion.div>
           ))}
         </div>
@@ -161,7 +182,7 @@ export default function CaseStudiesPage() {
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           <p className="text-gray-400">
-            每个案例都包含完整的需求分析、方案设计、技术实现、数据成果和复盘总结
+            {t(lang, 'case.footer')}
           </p>
         </motion.div>
       </div>

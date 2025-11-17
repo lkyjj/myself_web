@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { motion } from "framer-motion";
 import { FaChartBar, FaList, FaFilter } from "react-icons/fa";
+import { t, Lang } from "@/lib/utils/i18n";
 
 interface SkillData {
   subject: string;
@@ -29,6 +30,25 @@ export default function SkillsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [proficiencyFilter, setProficiencyFilter] = useState<string>("all");
   const [mounted, setMounted] = useState(false);
+  const [lang, setLang] = useState<Lang>('zh');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('lang') as Lang | null;
+    if (saved) setLang(saved);
+    
+    const handleStorageChange = () => {
+      const updated = localStorage.getItem('lang') as Lang | null;
+      if (updated) setLang(updated);
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('languageChange', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('languageChange', handleStorageChange);
+    };
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -40,22 +60,22 @@ export default function SkillsPage() {
         // 转换雷达图数据
         const radarData: SkillData[] = [
           {
-            subject: "AI技术",
+            subject: lang === 'zh' ? "AI技术" : "AI Technology",
             A: Math.round(Object.values(skills.aiTech).reduce((a, b) => a + b, 0) / Object.values(skills.aiTech).length),
             fullMark: 100,
           },
           {
-            subject: "产品能力",
+            subject: lang === 'zh' ? "产品能力" : "Product Skills",
             A: Math.round(Object.values(skills.productSkills).reduce((a, b) => a + b, 0) / Object.values(skills.productSkills).length),
             fullMark: 100,
           },
           {
-            subject: "前端开发",
+            subject: lang === 'zh' ? "前端开发" : "Frontend Dev",
             A: Math.round(Object.values(skills.frontendDev).reduce((a, b) => a + b, 0) / Object.values(skills.frontendDev).length),
             fullMark: 100,
           },
           {
-            subject: "后端开发",
+            subject: lang === 'zh' ? "后端开发" : "Backend Dev",
             A: Math.round(Object.values(skills.backendDev).reduce((a, b) => a + b, 0) / Object.values(skills.backendDev).length),
             fullMark: 100,
           },
@@ -66,7 +86,7 @@ export default function SkillsPage() {
         // 构建技能分类数据
         const categories: SkillCategory[] = [
           {
-            name: "AI技术",
+            name: t(lang, 'skills.category.ai'),
             color: "#3B82F6",
             skills: Object.entries(skills.aiTech).map(([name, level]) => ({
               name,
@@ -76,7 +96,7 @@ export default function SkillsPage() {
             })),
           },
           {
-            name: "产品能力",
+            name: t(lang, 'skills.category.product'),
             color: "#10B981",
             skills: Object.entries(skills.productSkills).map(([name, level]) => ({
               name,
@@ -86,7 +106,7 @@ export default function SkillsPage() {
             })),
           },
           {
-            name: "前端开发",
+            name: t(lang, 'skills.category.frontend'),
             color: "#F59E0B",
             skills: Object.entries(skills.frontendDev).map(([name, level]) => ({
               name,
@@ -96,7 +116,7 @@ export default function SkillsPage() {
             })),
           },
           {
-            name: "后端开发",
+            name: t(lang, 'skills.category.backend'),
             color: "#EF4444",
             skills: Object.entries(skills.backendDev).map(([name, level]) => ({
               name,
@@ -114,7 +134,7 @@ export default function SkillsPage() {
     };
 
     loadSkills();
-  }, []);
+  }, [lang]);
 
   const getSkillDescription = (skillName: string): string => {
     const descriptions: Record<string, string> = {
@@ -160,9 +180,9 @@ export default function SkillsPage() {
   };
 
   const getProficiencyLevel = (level: number): string => {
-    if (level >= 90) return "熟练掌握";
-    if (level >= 80) return "掌握";
-    return "了解";
+    if (level >= 90) return t(lang, 'skills.proficiency.expert');
+    if (level >= 80) return t(lang, 'skills.proficiency.proficient');
+    return t(lang, 'skills.proficiency.familiar');
   };
 
   const filteredCategories = skillCategories.filter(category => 
@@ -185,10 +205,10 @@ export default function SkillsPage() {
           className="text-center mb-12"
         >
           <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            技能矩阵
+            {t(lang, 'skills.title')}
           </h1>
           <p className="text-gray-300 text-lg">
-            四维技能可视化展示：AI技术、产品能力、前端开发、后端开发
+            {t(lang, 'skills.subtitle')}
           </p>
         </motion.div>
 
@@ -209,7 +229,7 @@ export default function SkillsPage() {
                 }`}
               >
                 <FaChartBar />
-                雷达图
+                {t(lang, 'skills.radar')}
               </button>
               <button
                 onClick={() => setActiveView("list")}
@@ -218,7 +238,7 @@ export default function SkillsPage() {
                 }`}
               >
                 <FaList />
-                列表视图
+                {t(lang, 'skills.list')}
               </button>
             </div>
 
@@ -231,23 +251,23 @@ export default function SkillsPage() {
                   onChange={(e) => setSelectedCategory(e.target.value)}
                   className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-black focus:outline-none focus:border-black"
                 >
-                  <option value="all">所有分类</option>
-                  <option value="AI技术">AI技术</option>
-                  <option value="产品能力">产品能力</option>
-                  <option value="前端开发">前端开发</option>
-                  <option value="后端开发">后端开发</option>
+                  <option value="all">{t(lang, 'skills.filter.category')}</option>
+                  <option value={t(lang, 'skills.category.ai')}>{t(lang, 'skills.category.ai')}</option>
+                  <option value={t(lang, 'skills.category.product')}>{t(lang, 'skills.category.product')}</option>
+                  <option value={t(lang, 'skills.category.frontend')}>{t(lang, 'skills.category.frontend')}</option>
+                  <option value={t(lang, 'skills.category.backend')}>{t(lang, 'skills.category.backend')}</option>
                 </select>
               </div>
 
               <select
                 value={proficiencyFilter}
                 onChange={(e) => setProficiencyFilter(e.target.value)}
-                className="bg白色 border border灰色-200 rounded-lg px-3 py-2 text黑色 focus:outline-none focus:border黑色"
+                className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-black focus:outline-none focus:border-black"
               >
-                <option value="all">所有熟练度</option>
-                <option value="熟练掌握">熟练掌握</option>
-                <option value="掌握">掌握</option>
-                <option value="了解">了解</option>
+                <option value="all">{t(lang, 'skills.filter.proficiency')}</option>
+                <option value={t(lang, 'skills.proficiency.expert')}>{t(lang, 'skills.proficiency.expert')}</option>
+                <option value={t(lang, 'skills.proficiency.proficient')}>{t(lang, 'skills.proficiency.proficient')}</option>
+                <option value={t(lang, 'skills.proficiency.familiar')}>{t(lang, 'skills.proficiency.familiar')}</option>
               </select>
             </div>
           </div>
@@ -262,7 +282,7 @@ export default function SkillsPage() {
             className="mb-12"
           >
             <div className="bg-white border border-gray-200 rounded-xl p-8">
-              <h2 className="text-2xl font-bold mb-6 text-center">技能雷达图</h2>
+              <h2 className="text-2xl font-bold mb-6 text-center">{t(lang, 'skills.radar.title')}</h2>
               <div className="h-96">
                 {mounted ? (
                   <ResponsiveContainer width="100%" height="100%">
@@ -321,7 +341,7 @@ export default function SkillsPage() {
                   />
                   <h3 className="text-xl font-bold">{category.name}</h3>
                   <span className="text-gray-400 text-sm">
-                    ({category.skills.length} 项技能)
+                    ({category.skills.length}{t(lang, 'skills.items')})
                   </span>
                 </div>
 
@@ -365,7 +385,7 @@ export default function SkillsPage() {
 
                       {skill.relatedProjects.length > 0 && (
                         <div>
-                          <p className="text-gray-600 text-xs mb-2">相关项目:</p>
+                          <p className="text-gray-600 text-xs mb-2">{t(lang, 'skills.related')}</p>
                           <div className="flex flex-wrap gap-2">
                             {skill.relatedProjects.map((project, index) => (
                               <span
@@ -393,7 +413,7 @@ export default function SkillsPage() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-12 bg-white border border-gray-200 rounded-xl p-6"
         >
-          <h3 className="text-xl font-bold mb-4">技能统计</h3>
+          <h3 className="text-xl font-bold mb-4">{t(lang, 'skills.stats.title')}</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {skillData.map((item, index) => (
               <div key={item.subject} className="text-center">

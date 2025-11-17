@@ -38,6 +38,8 @@ export default function Navigation() {
     const next = lang === 'zh' ? 'en' : 'zh'
     setLang(next)
     localStorage.setItem('lang', next)
+    // Dispatch custom event to notify other components
+    window.dispatchEvent(new Event('languageChange'))
   }
 
   return (

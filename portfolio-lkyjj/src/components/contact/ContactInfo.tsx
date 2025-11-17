@@ -4,20 +4,25 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaEnvelope, FaPhone } from 'react-icons/fa';
 import { copyToClipboard } from '@/lib/utils';
+import { t, Lang } from '@/lib/utils/i18n';
 
-export default function ContactSection() {
+interface ContactInfoProps {
+  lang: Lang;
+}
+
+export default function ContactSection({ lang }: ContactInfoProps) {
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const contactInfo = [
     {
       icon: FaPhone,
-      label: "电话",
+      label: t(lang, 'about.contact.phone'),
       value: "18370038070",
       field: "phone"
     },
     {
       icon: FaEnvelope,
-      label: "邮箱",
+      label: t(lang, 'about.contact.email'),
       value: "1525494310@qq.com",
       field: "email"
     },
@@ -40,7 +45,7 @@ export default function ContactSection() {
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-8">
-      <h3 className="text-2xl font-bold mb-6 text-center">联系方式</h3>
+      <h3 className="text-2xl font-bold mb-6 text-center">{t(lang, 'contact.info.title')}</h3>
       <div className="space-y-4">
         {contactInfo.map((item) => (
           <motion.div
@@ -76,9 +81,9 @@ export default function ContactSection() {
                 className="p-2 hover:bg-gray-300 rounded transition-colors"
               >
                 {copiedField === item.field ? (
-                  <span className="text-black text-sm">已复制!</span>
+                  <span className="text-black text-sm">{t(lang, 'contact.copied')}</span>
                 ) : (
-                  <span className="text-gray-600 text-sm">复制</span>
+                  <span className="text-gray-600 text-sm">{t(lang, 'contact.copy')}</span>
                 )}
               </button>
             )}

@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { t, Lang } from '@/lib/utils/i18n';
 
 interface FormData {
   name: string;
@@ -10,17 +11,30 @@ interface FormData {
   message: string;
 }
 
-export default function ContactForm() {
+interface ContactFormProps {
+  lang: Lang;
+}
+
+export default function ContactForm({ lang }: ContactFormProps) {
+  const cooperationTypes = lang === 'zh'
+    ? ['技术合作', '项目咨询', 'AI方案讨论', '其他']
+    : ['Technical Collaboration', 'Project Consultation', 'AI Solution Discussion', 'Other'];
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    type: '技术合作',
+    type: cooperationTypes[0],
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const cooperationTypes = ['技术合作', '项目咨询', 'AI方案讨论', '其他'];
+  useEffect(() => {
+    setFormData(prev => ({
+      ...prev,
+      type: cooperationTypes[0]
+    }));
+  }, [lang]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +44,7 @@ export default function ContactForm() {
     setTimeout(() => {
       setSubmitStatus('success');
       setIsSubmitting(false);
-      setFormData({ name: '', email: '', type: '技术合作', message: '' });
+      setFormData({ name: '', email: '', type: cooperationTypes[0], message: '' });
       
       // 3秒后重置状态
       setTimeout(() => {
@@ -48,7 +62,7 @@ export default function ContactForm() {
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-8">
-      <h3 className="text-2xl font-bold mb-6 text-center">合作咨询</h3>
+      <h3 className="text-2xl font-bold mb-6 text-center">{t(lang, 'contact.form.title')}</h3>
       
       {submitStatus === 'success' ? (
         <motion.div
@@ -58,15 +72,15 @@ export default function ContactForm() {
           transition={{ duration: 0.3 }}
         >
           <div className="text-green-400 text-6xl mb-4">✓</div>
-          <h4 className="text-xl font-semibold mb-2">提交成功！</h4>
-          <p className="text-gray-400">已收到你的消息，24小时内回复</p>
+          <h4 className="text-xl font-semibold mb-2">{t(lang, 'contact.form.success.title')}</h4>
+          <p className="text-gray-400">{t(lang, 'contact.form.success.message')}</p>
         </motion.div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="name" className="block text-sm font-medium mb-2">
-                姓名 *
+                {t(lang, 'contact.form.name')} *
               </label>
               <input
                 type="text"
@@ -76,13 +90,13 @@ export default function ContactForm() {
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-black"
-                placeholder="请输入你的姓名"
+                placeholder={t(lang, 'contact.form.placeholder.name')}
               />
             </div>
             
             <div>
               <label htmlFor="email" className="block text-sm font-medium mb-2">
-                邮箱 *
+                {t(lang, 'contact.form.email')} *
               </label>
               <input
                 type="email"
@@ -92,14 +106,14 @@ export default function ContactForm() {
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-black"
-                placeholder="请输入你的邮箱"
+                placeholder={t(lang, 'contact.form.placeholder.email')}
               />
             </div>
           </div>
 
           <div>
             <label htmlFor="type" className="block text-sm font-medium mb-2">
-              合作类型
+              {t(lang, 'contact.form.type')}
             </label>
             <select
               id="type"
@@ -118,7 +132,7 @@ export default function ContactForm() {
 
           <div>
             <label htmlFor="message" className="block text-sm font-medium mb-2">
-              留言内容 *
+              {t(lang, 'contact.form.message')} *
             </label>
             <textarea
               id="message"
@@ -128,7 +142,7 @@ export default function ContactForm() {
               required
               rows={5}
               className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-black resize-none"
-              placeholder="请详细描述你的需求或想法..."
+              placeholder={t(lang, 'contact.form.placeholder.message')}
             />
           </div>
 
@@ -140,10 +154,10 @@ export default function ContactForm() {
             {isSubmitting ? (
               <div className="flex items-center justify-center">
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black mr-2"></div>
-                发送中...
+                {t(lang, 'contact.form.submitting')}
               </div>
             ) : (
-              '发送消息'
+              t(lang, 'contact.form.submit')
             )}
           </button>
         </form>
